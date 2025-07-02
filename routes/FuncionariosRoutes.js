@@ -1,11 +1,11 @@
 const express = require('express');
 const funcionariosController = require('../controllers/FuncionariosController');
 const router = express.Router();
-// cRud
+// CRuD
 router.get('/listar', funcionariosController.listarFuncionarios);
-
+router.delete('/deletar/:id', funcionariosController.deletarFuncionario);
 router.post('/cadastrar', funcionariosController.cadastrarFuncionario);
-
+router.put('/atualizar/:id', funcionariosController.atualizarFuncionario); 
 
 module.exports = router;
 

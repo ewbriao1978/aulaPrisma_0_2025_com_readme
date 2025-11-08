@@ -12,6 +12,28 @@ module.exports = {
     }
   },
 
+  async mostrarFuncionario(req, res) {
+    try {
+      const { id } = req.params;
+
+      if (!id) {
+        return res.status(400).json({ error: 'ID do funcionário é obrigatório' });
+      }
+      
+      const funcionario = await prisma.funcionarios.findUnique({
+        where: { id: parseInt(id) },
+      }); 
+      if (!funcionario) {
+        return res.status(404).json({ error: 'Funcionário não encontrado' });
+      }
+
+      res.status(200).json(funcionario);
+    } catch (error) {
+      console.error('Erro ao buscar funcionário:', error);
+      res.status(500).json({ error: 'Erro ao buscar funcionário' });
+    }
+  },
+
   async cadastrarFuncionario(req, res) {
     try {
       const { nome, email, salario } = req.body;
